@@ -21,6 +21,7 @@ public class Menu extends JLabel {
     public Menu() {
         setBackground(Color.blue);
         setLayout(new GridLayout(3,3));
+        setLayout(new BorderLayout());
         setSize(100, 800);
         setFocusable(false);
 
@@ -29,22 +30,31 @@ public class Menu extends JLabel {
         initJSliderSpacing();
 
         JLabel jLabel1 = new JLabel("length");
+        jLabel1.setHorizontalAlignment(0);
         JLabel jLabel2 = new JLabel("radius");
+        jLabel2.setHorizontalAlignment(0);
         JLabel jLabel3 = new JLabel("spacing");
+        jLabel3.setHorizontalAlignment(0);
 
         String[] string = {CIRCLE_JCB, HOURS_JCB, SQUARE_JCB};
         jComboBox = new JComboBox(string);
         jComboBox.setSelectedIndex(0);
 
-        add(jLabel1);
-        add(jLabel2);
-        add(jLabel3);
+        JPanel jPanelLabelContainer = new JPanel();
+        jPanelLabelContainer.setLayout(new GridLayout(1, 3));
+        jPanelLabelContainer.add(jLabel1);
+        jPanelLabelContainer.add(jLabel2);
+        jPanelLabelContainer.add(jLabel3);
+        add(jPanelLabelContainer, BorderLayout.PAGE_START);
 
-        add(jSliderLength);
-        add(jSliderRadius);
-        add(jSliderSpacing);
+        JPanel jPanelSliderContainer = new JPanel();
+        jPanelSliderContainer.setLayout(new GridLayout(1, 3));
+        jPanelSliderContainer.add(jSliderLength);
+        jPanelSliderContainer.add(jSliderRadius);
+        jPanelSliderContainer.add(jSliderSpacing);
+        add(jPanelSliderContainer, BorderLayout.CENTER);
 
-        add(jComboBox);
+        add(jComboBox, BorderLayout.PAGE_END);
 
         setVisible(true);
     }
