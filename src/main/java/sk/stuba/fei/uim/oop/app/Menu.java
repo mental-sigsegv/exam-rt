@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop;
+package sk.stuba.fei.uim.oop.app;
 
 import lombok.Getter;
 

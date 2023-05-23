@@ -1,10 +1,10 @@
-package sk.stuba.fei.uim.oop;
+package sk.stuba.fei.uim.oop.app;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Game {
-    public Game() {
+public class App {
+    public App() {
         JFrame frame = new JFrame("Exam");
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -12,7 +12,7 @@ public class Game {
         frame.setResizable(false);
 
         Menu menu = new Menu();
-        Drawing drawing = new Drawing(menu);
+        PaintingCanvas drawing = new PaintingCanvas(menu);
         drawing.setFocusable(true);
         frame.add(drawing, BorderLayout.CENTER);
         frame.add(menu, BorderLayout.EAST);

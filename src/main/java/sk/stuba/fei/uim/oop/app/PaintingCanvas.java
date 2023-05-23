@@ -1,5 +1,6 @@
-package sk.stuba.fei.uim.oop;
+package sk.stuba.fei.uim.oop.app;
 
+import sk.stuba.fei.uim.oop.mouse.MousePosition;
 import sk.stuba.fei.uim.oop.shape.Circle;
 import sk.stuba.fei.uim.oop.shape.Hours;
 import sk.stuba.fei.uim.oop.shape.Square;
@@ -11,14 +12,14 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static sk.stuba.fei.uim.oop.Menu.*;
+import static sk.stuba.fei.uim.oop.app.Menu.*;
 
-public class Drawing extends Canvas implements MouseMotionListener, ItemListener, ChangeListener {
+public class PaintingCanvas extends Canvas implements MouseMotionListener, ItemListener, ChangeListener {
     private final Menu menu;
     private int length;
     private int lastLength;
     private final ArrayList<MousePosition> mousePositions;
-    public Drawing(Menu menu) {
+    public PaintingCanvas(Menu menu) {
         this.menu = menu;
         this.length = menu.getJSliderLength().getValue();
         lastLength = length;
