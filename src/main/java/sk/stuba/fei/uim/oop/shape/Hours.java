@@ -3,9 +3,9 @@ package sk.stuba.fei.uim.oop.shape;
 import java.awt.*;
 
 public class Hours {
-    private int x;
-    private int y;
-    private int size;
+    private final int x;
+    private final int y;
+    private final int size;
     public Hours(int x, int y, int size) {
         this.x = x;
         this.y = y;

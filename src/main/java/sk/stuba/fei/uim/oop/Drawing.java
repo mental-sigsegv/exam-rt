@@ -14,20 +14,25 @@ import java.util.Objects;
 import static sk.stuba.fei.uim.oop.Menu.*;
 
 public class Drawing extends Canvas implements MouseMotionListener, ItemListener, ChangeListener {
-    private Menu menu;
+    private final Menu menu;
     private int length;
     private int lastLength;
-    private ArrayList<MousePosition> mousePositions;
+    private final ArrayList<MousePosition> mousePositions;
     public Drawing(Menu menu) {
         this.menu = menu;
-        this.length = menu.getJSlider1().getValue();
+        this.length = menu.getJSliderLength().getValue();
         lastLength = length;
         setFocusable(true);
         addMouseMotionListener(this);
         mousePositions = new ArrayList<>();
-        menu.getJSlider1().addChangeListener(this);
-        menu.getJSlider2().addChangeListener(this);
-        menu.getJSlider3().addChangeListener(this);
+
+        initMenuListeners();
+    }
+
+    private void initMenuListeners() {
+        menu.getJSliderLength().addChangeListener(this);
+        menu.getJSliderRadius().addChangeListener(this);
+        menu.getJSliderSpacing().addChangeListener(this);
         menu.getJComboBox().addItemListener(this);
     }
 
@@ -39,13 +44,12 @@ public class Drawing extends Canvas implements MouseMotionListener, ItemListener
             mousePositions.remove(0);
         }
         mousePositions.add(new MousePosition(x, y));
-
         repaint();
     }
 
     private void changeLines() {
         lastLength = length;
-        length = menu.getJSlider1().getValue();
+        length = menu.getJSliderLength().getValue();
         if (length != lastLength && length < lastLength) {
             if (lastLength - length > 0) {
                 mousePositions.subList(0, lastLength - length).clear();
@@ -72,7 +76,7 @@ public class Drawing extends Canvas implements MouseMotionListener, ItemListener
         for (int i=0; i < mousePositions.size()-1; i++) {
             g.setColor(new Color(255-i*(255/mousePositions.size()), i*(255/mousePositions.size()), 0));
             g.drawLine(mousePositions.get(i).getX(), mousePositions.get(i). getY(), mousePositions.get(i+1).getX(), mousePositions.get(i+1). getY());
-            if (counter % menu.getJSlider3().getValue() == 0) {
+            if (counter % menu.getJSliderSpacing().getValue() == 0) {
                 drawShape(g, mousePositions.get(i).getX(), mousePositions.get(i). getY());
             }
             counter++;
@@ -97,15 +101,15 @@ public class Drawing extends Canvas implements MouseMotionListener, ItemListener
     private void drawShape(Graphics g, int x, int y) {
         switch (Objects.requireNonNull(menu.getJComboBox().getSelectedItem()).toString()) {
             case CIRCLE_JCB:
-                Circle circle = new Circle(x, y, menu.getJSlider2().getValue());
+                Circle circle = new Circle(x, y, menu.getJSliderRadius().getValue());
                 circle.draw(g);
                 break;
             case SQUARE_JCB:
-                Square square = new Square(x, y, menu.getJSlider2().getValue());
+                Square square = new Square(x, y, menu.getJSliderRadius().getValue());
                 square.draw(g);
                 break;
             case HOURS_JCB:
-                Hours hours = new Hours(x, y, menu.getJSlider2().getValue());
+                Hours hours = new Hours(x, y, menu.getJSliderRadius().getValue());
                 hours.draw(g);
         }
     }

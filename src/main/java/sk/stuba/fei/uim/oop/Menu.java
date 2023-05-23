@@ -1,25 +1,17 @@
 package sk.stuba.fei.uim.oop;
 
 import lombok.Getter;
-import lombok.experimental.Helper;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class Menu extends JLabel {
     @Getter
-    private JSlider jSlider1;
+    private JSlider jSliderLength;
     @Getter
-    private JSlider jSlider2;
+    private JSlider jSliderRadius;
     @Getter
-    private JSlider jSlider3;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
+    private JSlider jSliderSpacing;
     @Getter
     private JComboBox jComboBox;
     public static final String CIRCLE_JCB = "CIRCLE";
@@ -32,31 +24,13 @@ public class Menu extends JLabel {
         setSize(100, 800);
         setFocusable(false);
 
-        jSlider1 = new JSlider(JSlider.VERTICAL, 20, 200, 50);
-        jSlider1.setMinorTickSpacing(10);
-        jSlider1.setMajorTickSpacing(10);
-        jSlider1.setSnapToTicks(true);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setPaintLabels(true);
+        initJSliderLength();
+        initJSliderRadius();
+        initJSliderSpacing();
 
-
-        jSlider2 = new JSlider(JSlider.VERTICAL, 1, 20, 5);
-        jSlider2.setMinorTickSpacing(1);
-        jSlider2.setMajorTickSpacing(1);
-        jSlider2.setSnapToTicks(true);
-        jSlider2.setPaintTicks(true);
-        jSlider2.setPaintLabels(true);
-
-        jSlider3 = new JSlider(JSlider.VERTICAL, 1, 20, 5);
-        jSlider3.setMinorTickSpacing(1);
-        jSlider3.setMajorTickSpacing(1);
-        jSlider3.setSnapToTicks(true);
-        jSlider3.setPaintTicks(true);
-        jSlider3.setPaintLabels(true);
-
-        jLabel1 = new JLabel("length");
-        jLabel2 = new JLabel("radius");
-        jLabel3 = new JLabel("spacing");
+        JLabel jLabel1 = new JLabel("length");
+        JLabel jLabel2 = new JLabel("radius");
+        JLabel jLabel3 = new JLabel("spacing");
 
         String[] string = {CIRCLE_JCB, HOURS_JCB, SQUARE_JCB};
         jComboBox = new JComboBox(string);
@@ -66,12 +40,39 @@ public class Menu extends JLabel {
         add(jLabel2);
         add(jLabel3);
 
-        add(jSlider1);
-        add(jSlider2);
-        add(jSlider3);
+        add(jSliderLength);
+        add(jSliderRadius);
+        add(jSliderSpacing);
 
         add(jComboBox);
 
         setVisible(true);
+    }
+
+    private void initJSliderSpacing() {
+        jSliderSpacing = new JSlider(JSlider.VERTICAL, 1, 20, 5);
+        jSliderSpacing.setMinorTickSpacing(1);
+        jSliderSpacing.setMajorTickSpacing(1);
+        jSliderSpacing.setSnapToTicks(true);
+        jSliderSpacing.setPaintTicks(true);
+        jSliderSpacing.setPaintLabels(true);
+    }
+
+    private void initJSliderRadius() {
+        jSliderRadius = new JSlider(JSlider.VERTICAL, 1, 20, 5);
+        jSliderRadius.setMinorTickSpacing(1);
+        jSliderRadius.setMajorTickSpacing(1);
+        jSliderRadius.setSnapToTicks(true);
+        jSliderRadius.setPaintTicks(true);
+        jSliderRadius.setPaintLabels(true);
+    }
+
+    private void initJSliderLength() {
+        jSliderLength = new JSlider(JSlider.VERTICAL, 20, 200, 50);
+        jSliderLength.setMinorTickSpacing(10);
+        jSliderLength.setMajorTickSpacing(10);
+        jSliderLength.setSnapToTicks(true);
+        jSliderLength.setPaintTicks(true);
+        jSliderLength.setPaintLabels(true);
     }
 }
