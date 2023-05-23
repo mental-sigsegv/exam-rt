@@ -5,7 +5,7 @@ import lombok.Getter;
 import javax.swing.*;
 import java.awt.*;
 
-public class Menu extends JLabel {
+public class Menu extends JPanel {
     @Getter
     private JSlider jSliderLength;
     @Getter
