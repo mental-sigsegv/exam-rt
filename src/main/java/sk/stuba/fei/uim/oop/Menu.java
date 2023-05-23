@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop;
 
 import lombok.Getter;
+import lombok.experimental.Helper;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -10,11 +11,19 @@ import java.awt.*;
 public class Menu extends JLabel {
     @Getter
     private JSlider jSlider1;
+    @Getter
     private JSlider jSlider2;
+    @Getter
     private JSlider jSlider3;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
+    @Getter
+    private JComboBox jComboBox;
+    public static final String CIRCLE_JCB = "CIRCLE";
+    public static final String HOURS_JCB = "HOURS";
+    public static final String SQUARE_JCB = "SQUARE";
+
     public Menu() {
         setBackground(Color.blue);
         setLayout(new GridLayout(3,3));
@@ -47,8 +56,8 @@ public class Menu extends JLabel {
         jLabel2 = new JLabel("radius");
         jLabel3 = new JLabel("spacing");
 
-        String[] string = {"circle", "square", "hours"};
-        JComboBox jComboBox = new JComboBox(string);
+        String[] string = {CIRCLE_JCB, HOURS_JCB, SQUARE_JCB};
+        jComboBox = new JComboBox(string);
         jComboBox.setSelectedIndex(0);
 
         add(jLabel1);
