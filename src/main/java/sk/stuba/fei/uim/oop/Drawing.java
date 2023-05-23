@@ -4,34 +4,46 @@ import sk.stuba.fei.uim.oop.shape.Circle;
 import sk.stuba.fei.uim.oop.shape.Hours;
 import sk.stuba.fei.uim.oop.shape.Square;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static sk.stuba.fei.uim.oop.Menu.*;
 
-public class Drawing extends Canvas implements MouseMotionListener {
+public class Drawing extends Canvas implements MouseMotionListener, ItemListener, ChangeListener {
     private Menu menu;
     private int length;
     private int lastLength;
     private ArrayList<MousePosition> mousePositions;
     public Drawing(Menu menu) {
-//        setBackground(Color.yellow);
         this.menu = menu;
         this.length = menu.getJSlider1().getValue();
         lastLength = length;
-        System.out.println(length);
         setFocusable(true);
         addMouseMotionListener(this);
         mousePositions = new ArrayList<>();
+        menu.getJSlider1().addChangeListener(this);
+        menu.getJSlider2().addChangeListener(this);
+        menu.getJSlider3().addChangeListener(this);
+        menu.getJComboBox().addItemListener(this);
     }
 
     private void storeLines(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
+        changeLines();
+        if (mousePositions.size() > length) {
+            mousePositions.remove(0);
+        }
+        mousePositions.add(new MousePosition(x, y));
+
+        repaint();
+    }
+
+    private void changeLines() {
         lastLength = length;
         length = menu.getJSlider1().getValue();
         if (length != lastLength && length < lastLength) {
@@ -39,14 +51,6 @@ public class Drawing extends Canvas implements MouseMotionListener {
                 mousePositions.subList(0, lastLength - length).clear();
             }
         }
-
-        if (mousePositions.size() > length) {
-            mousePositions.remove(0);
-        }
-        mousePositions.add(new MousePosition(x, y));
-
-
-        repaint();
     }
 
     @Override
@@ -66,12 +70,28 @@ public class Drawing extends Canvas implements MouseMotionListener {
         }
         int counter = 0;
         for (int i=0; i < mousePositions.size()-1; i++) {
+            g.setColor(new Color(255-i*(255/mousePositions.size()), i*(255/mousePositions.size()), 0));
             g.drawLine(mousePositions.get(i).getX(), mousePositions.get(i). getY(), mousePositions.get(i+1).getX(), mousePositions.get(i+1). getY());
             if (counter % menu.getJSlider3().getValue() == 0) {
                 drawShape(g, mousePositions.get(i).getX(), mousePositions.get(i). getY());
             }
             counter++;
         }
+        if (mousePositions.size() > 1) {
+            drawShape(g, mousePositions.get(mousePositions.size()-2).getX(), mousePositions.get(mousePositions.size()-2). getY());
+        }
+
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        changeLines();
+        repaint();
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        repaint();
     }
 
     private void drawShape(Graphics g, int x, int y) {
@@ -88,6 +108,5 @@ public class Drawing extends Canvas implements MouseMotionListener {
                 Hours hours = new Hours(x, y, menu.getJSlider2().getValue());
                 hours.draw(g);
         }
-
     }
 }

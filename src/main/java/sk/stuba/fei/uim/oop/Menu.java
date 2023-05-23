@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class Menu extends JLabel {
     @Getter
@@ -37,13 +39,13 @@ public class Menu extends JLabel {
         jSlider1.setPaintTicks(true);
         jSlider1.setPaintLabels(true);
 
+
         jSlider2 = new JSlider(JSlider.VERTICAL, 1, 20, 5);
         jSlider2.setMinorTickSpacing(1);
         jSlider2.setMajorTickSpacing(1);
         jSlider2.setSnapToTicks(true);
         jSlider2.setPaintTicks(true);
         jSlider2.setPaintLabels(true);
-
 
         jSlider3 = new JSlider(JSlider.VERTICAL, 1, 20, 5);
         jSlider3.setMinorTickSpacing(1);
@@ -63,6 +65,7 @@ public class Menu extends JLabel {
         add(jLabel1);
         add(jLabel2);
         add(jLabel3);
+
         add(jSlider1);
         add(jSlider2);
         add(jSlider3);
