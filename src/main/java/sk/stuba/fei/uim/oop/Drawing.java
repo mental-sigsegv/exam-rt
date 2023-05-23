@@ -39,7 +39,7 @@ public class Drawing extends Canvas implements MouseMotionListener, ItemListener
     private void storeLines(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        changeLines();
+        removeExcessLines();
         if (mousePositions.size() > length) {
             mousePositions.remove(0);
         }
@@ -47,7 +47,7 @@ public class Drawing extends Canvas implements MouseMotionListener, ItemListener
         repaint();
     }
 
-    private void changeLines() {
+    private void removeExcessLines() {
         lastLength = length;
         length = menu.getJSliderLength().getValue();
         if (length != lastLength && length < lastLength) {
@@ -89,12 +89,12 @@ public class Drawing extends Canvas implements MouseMotionListener, ItemListener
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        changeLines();
         repaint();
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
+        removeExcessLines();
         repaint();
     }
 
